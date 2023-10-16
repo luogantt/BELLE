@@ -1,3 +1,46 @@
+
+
+
+##启动web 服务 
+
+```
+python cc1.py BELLE_BLOOM_GPTQ_4BIT    --wbits 4 --groupsize 128 --load  BELLE_BLOOM_GPTQ_4BIT/bloom7b-2m-4bit-128g.pt
+```
+
+## 测试代码
+
+```
+
+import base64
+import json
+import time
+import requests
+from utils.ops import read_wav_bytes
+
+URL = 'http://192.168.3.9:8081'
+
+#wav_bytes, sample_rate, channels, sample_width = read_wav_bytes('out.wav')
+data = {
+    'status': ' 如何理解黑格尔的 量变引起质变规律和否定之否定规律',
+
+}
+
+
+t0=time.time()
+r = requests.post(URL,  data=data)
+t1=time.time()
+r.encoding='utf-8'
+
+result = json.loads(r.text)
+print(result)
+print('time:', t1-t0, 's')
+
+
+```
+
+
+
+
 ## <img src="assets/belle_logo.png" style="vertical-align: middle; width: 35px;"> BELLE: Be Everyone's Large Language model Engine
 
 *Read this in [English](README_en.md).*
